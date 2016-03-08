@@ -1,7 +1,7 @@
 ## Unity快速集成
 
 ####导入SDK
-　　在 Unity 编译器中选择 Assets --> Import Package --> Custom Package 找到本地目录下的 `TalkingData_AppAnalytics_SDK.unitypackage` 文件，点击`Open`按钮即可导入成功。
+　　在 Unity 编译器中选择 Assets --> Import Package --> Custom Package 找到本地目录下的 `TalkingData_AppAnalytics_SDK.unitypackage` 文件，点击`Open`按钮即可导入成功。
 
 ####添加权限和依赖的框架
 ######Android
