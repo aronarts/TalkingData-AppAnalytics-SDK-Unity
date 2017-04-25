@@ -1,4 +1,5 @@
 ##Unity平台集成指南
+
 ###快速集成
 
 ####导入SDK
@@ -18,10 +19,19 @@
 * `ACCESS_COARSE_LOCATION(可选)` 用来获取该应用被使用的粗略位置信息。
 
 ######iOS
-　　Unity 生成 Xcode 工程时会自动添加依赖框架
+　　iOS平台需要添加适当的依赖框架才可以正常工作，开发者需要在编译生成的 `Xcode` 工程中添加下列所有依赖框架。
+
+* `AdSupport.framework` 获取advertisingIdentifier
+* `CFNetwork.framework` 发送统计数据
+* `CoreTelephony.framework` 获取运营商标识
+* `CoreMotion.framework` 支持摇一摇功能
+* `Security.framework` 辅助存储设备标识
+* `SystemConfiguration.framework` 检测网络状况
+* `libc++.tbd` 支持最新的c++11标准
+* `libz.tbd` 进行数据压缩
 
 ######WindowsPhone
-　　Windows Phone平台中，SDK需要获取适当的权限才可以正常工作，开发者需要在WMAppManifest.xml文件中添加下列所有权限申明。
+　　Windows Phone平台中，SDK需要获取适当的权限才可以正常工作，开发者需要在 `WMAppManifest.xml` 文件中添加下列所有权限申明。
 
 * `ID_CAP_IDENTITY_DEVICE` 用于唯一标识一台设备。
 * `ID_CAP_IDENTITY_USER` 用于唯一标识一台设备。
@@ -77,9 +87,11 @@ TalkingDataPlugin.TrackEventWithParameters("Event_ID","Event_Label", Dictionary<
 ###推送营销
 　　营销推送组件帮助您获得利用数据进行精准推送的能力，结合数据平台提供的各种人群，可以实时编辑发送内容，对任意人群完成推送，并支持实时查阅推送效果数据，不断对比效果，优化营销方法。  
 　　营销推送更强大之处在于，您不仅可以选择使用TalkingData提供的推送通道，他还可以与个推、极光等推送平台组合使用，让以往的粗放推送都可达到实时精准化，并实时查阅效果数据。
+
 ####Android
 #####集成TalkingData推送
 　　增加以下的调用方法，来让您的应用可以接收推送通知；需注意在获得推送能力的同时，您的应用会在后台中长期运行。
+
 ######修改AndroidManifest.xml文件
 1.添加推送功能所必要的权限。
 
@@ -131,8 +143,10 @@ TalkingDataPlugin.TrackEventWithParameters("Event_ID","Event_Label", Dictionary<
 
 #####第三方推送平台与TalkingData组合使用
 　　TalkingData支持从平台中划定精准用户群，组合第三方推送平台来直接发送推送和收集实时数据效果；目前支持两家第三方推送平台：个推、极光。如果您已经是三方推送的使用者，这种方式能让您更舒服的实现精准推送并验证效果。
+
 ######集成第三方推送平台
 　　您需要在第三方推送平台中申请账户，并已完成三方推送的对接。 您需要在对接后确认测试通过，三方推送可以接收到推送消息。
+
 ######添加TalkingData Game Analytics所必须的BroadCastReceiver
 1.个推推送
 
@@ -177,10 +191,17 @@ TalkingDataPlugin.TrackEventWithParameters("Event_ID","Event_Label", Dictionary<
 void Start () {
 	TalkingDataPlugin.SessionStarted("your_app_id", "your_channel_id");
 #if UNITY_IPHONE
-	UnityEngine.iOS.NotificationServices.RegisterForNotifications(
-		UnityEngine.iOS.NotificationType.Alert |
-		UnityEngine.iOS.NotificationType.Badge |
-		UnityEngine.iOS.NotificationType.Sound);
+#if UNITY_5
+		UnityEngine.iOS.NotificationServices.RegisterForNotifications(
+			UnityEngine.iOS.NotificationType.Alert |
+			UnityEngine.iOS.NotificationType.Badge |
+			UnityEngine.iOS.NotificationType.Sound);
+#else
+		NotificationServices.RegisterForRemoteNotificationTypes(
+			RemoteNotificationType.Alert |
+			RemoteNotificationType.Badge |
+			RemoteNotificationType.Sound);
+#endif
 #endif
 	// other code
 }
