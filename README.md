@@ -192,15 +192,15 @@ void Start () {
 	TalkingDataPlugin.SessionStarted("your_app_id", "your_channel_id");
 #if UNITY_IPHONE
 #if UNITY_5
-		UnityEngine.iOS.NotificationServices.RegisterForNotifications(
-			UnityEngine.iOS.NotificationType.Alert |
-			UnityEngine.iOS.NotificationType.Badge |
-			UnityEngine.iOS.NotificationType.Sound);
+	UnityEngine.iOS.NotificationServices.RegisterForNotifications(
+		UnityEngine.iOS.NotificationType.Alert |
+		UnityEngine.iOS.NotificationType.Badge |
+		UnityEngine.iOS.NotificationType.Sound);
 #else
-		NotificationServices.RegisterForRemoteNotificationTypes(
-			RemoteNotificationType.Alert |
-			RemoteNotificationType.Badge |
-			RemoteNotificationType.Sound);
+	NotificationServices.RegisterForRemoteNotificationTypes(
+		RemoteNotificationType.Alert |
+		RemoteNotificationType.Badge |
+		RemoteNotificationType.Sound);
 #endif
 #endif
 	// other code
