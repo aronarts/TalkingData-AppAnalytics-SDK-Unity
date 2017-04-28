@@ -43,8 +43,8 @@
 　　在应用结束时（包含切出应用和退到后台情况，如点击home、锁屏等按键），调用 `TalkingDataPlugin.SessionStoped`。  
 　　可以选择性的在channelId中填入推广渠道的名称，数据报表中则可单独查询到他们的数据。每台设备仅记录首次安装激活的渠道，更替渠道包安装不会重复计量。不同的渠道ID包请重新编译打包。
 
-#### 高级功能
-###### 页面统计
+### 高级功能
+#### 页面统计
 　　统计页面的点击次数和停留时间，需要在页面打开和关闭的时候添加对应的API调用。
 
 ```
@@ -55,14 +55,14 @@ TalkingDataPlugin.TrackPageEnd("page_name");
 ```
 　　注：page_name是自定义的页面名称，注意不要加空格或其他的转义字符。
 
-###### 位置信息统计
+#### 位置信息统计
 　　对于iOS平台，TalkingData默认不统计用户的位置信息，只提供了记录接口，请根据苹果公司的审核原则合理使用用户的位置信息，如有需要，可以将已获取的位置信息提交到TalkingData统计服务器，服务器只保存最近一次提交的位置信息。
 
 ```
 TalkingDataPlugin.SetLocation(纬度, 经度);
 ```
 
-###### 使用自定义事件
+#### 使用自定义事件
 　　自定义事件用于统计任何您期望去跟踪的数据，同时自定义事件还支持添加一些描述性的属性参数，使用多对Key-Value的方式来进行发送（非必须使用），用来对事件发生时的状况做详尽分析。
 
 　　在应用程序要跟踪的事件处加入下面格式的代码，也就成功的添加了一个简单事件到您的应用程序中了：
@@ -83,6 +83,13 @@ TalkingDataPlugin.TrackEventWithLabel("Event_ID", "Event_Label");
 TalkingDataPlugin.TrackEventWithParameters("Event_ID","Event_Label", Dictionary<string, object="">);
 ```
 　　注: 此Dictionary的Value仅支持字符串（string）和数字（number）类型。在Value使用string格式时，报表中将给出事件发生时每种value出现的频次；Value为number时，报表将帮助计算value值的总计值和平均数。
+
+#### 用户质量评估
+　　用户质量评估功能开关可以控制是否启动用户质量评估功能。 当启动用户质量评估功能后，SDK会在独立进程中启动Service进行传感器数据采集和实时用户行为识别，这些结果数据将用于用户质量评估模型。 SDK默认开启用户质量评估功能，开发者可以选择设置将该功能关闭或者开启。
+
+```
+TalkingDataPlugin.SetAntiCheatingEnabled(true);
+```
 
 ### 推送营销
 　　营销推送组件帮助您获得利用数据进行精准推送的能力，结合数据平台提供的各种人群，可以实时编辑发送内容，对任意人群完成推送，并支持实时查阅推送效果数据，不断对比效果，优化营销方法。  
